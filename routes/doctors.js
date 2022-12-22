@@ -7,4 +7,9 @@ router.route('/')
     res.send('Doctors');
 })
 
+router.route('/:id')
+.get((req, res) => {
+    res.send('Doctors ID');
+})
+
 module.exports = router;
