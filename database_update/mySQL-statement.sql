@@ -5,7 +5,7 @@ CREATE DATABASE myhealthapplication;
 USE myhealthapplication;
 
 CREATE TABLE patients(
-	patientID int NOT NULL,
+	patientID int NOT NULL AUTO_INCREMENT,
     firebaseUID varchar(255),
 	firstName varchar(255),
 	lastName varchar(255),
@@ -18,7 +18,7 @@ CREATE TABLE patients(
 );
 
 CREATE TABLE doctors(
-	doctorID int NOT NULL,
+	doctorID int NOT NULL AUTO_INCREMENT,
 	firstName varchar(255),
 	lastName varchar(255),
 	area varchar(255),
@@ -28,7 +28,7 @@ CREATE TABLE doctors(
 );
 
 CREATE TABLE hospitals(
-	hospitalID int NOT NULL,
+	hospitalID int NOT NULL AUTO_INCREMENT,
 	name varchar(255),
 	address varchar(255),
 	mobile varchar(255),
@@ -36,7 +36,7 @@ CREATE TABLE hospitals(
 );
 
 CREATE TABLE doctorHospital(
-	dhID int NOT NULL,
+	dhID int NOT NULL AUTO_INCREMENT,
 	doctorID int,
     patientID int,
 	PRIMARY KEY (dhID),
@@ -45,7 +45,7 @@ CREATE TABLE doctorHospital(
 );
 
 CREATE TABLE schedules(
-	scheduleID int NOT NULL,
+	scheduleID int NOT NULL AUTO_INCREMENT,
 	doctorID int NOT NULL,
     patientID int NOT NULL,
     hospitalID int NOT NULL,
