@@ -62,3 +62,11 @@ CREATE TABLE schedules(
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 ALTER TABLE schedules ADD COLUMN status VARCHAR(15) AFTER description;
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE schedules CHANGE appointmentDate appointmentDate DATE;
+
+ALTER TABLE schedules ADD COLUMN startTime TIME AFTER appointmentDate;
+
+ALTER TABLE schedules ADD COLUMN endTime TIME AFTER startTime;
