@@ -52,9 +52,13 @@ CREATE TABLE schedules(
     scheduledDate datetime,
     updateDate datetime,
     appointmentDate datetime,
-    discription varchar(255),
+    description varchar(255),
 	PRIMARY KEY (scheduleID),
     FOREIGN KEY (patientID) REFERENCES patients(patientID),
     FOREIGN KEY (doctorID) REFERENCES doctors(doctorID),
     FOREIGN KEY (hospitalID) REFERENCES hospitals(hospitalID)
 );
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE schedules ADD COLUMN status VARCHAR(15) AFTER description;
