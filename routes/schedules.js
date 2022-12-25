@@ -91,4 +91,23 @@ router.route("/add").post(async (req, res) => {
   });
 });
 
+router.route("/cancle").post(async (req, res) => {
+    const id = req.query.id;
+    con.connect(function (err) {
+      if (err) throw err;
+      con.query(
+        "UPDATE schedules SET status='Cancle' WHERE scheduleID = ?",[parseInt(id)],
+        (error, results) => {
+          if (error) {
+            console.log(error);
+          } else if (results.length == 0) {
+            console.log("no details!!");
+          } else {
+            res.json(results);
+          }
+        }
+      );
+    });
+  });
+
 module.exports = router;
