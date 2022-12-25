@@ -92,7 +92,6 @@ router.route("/add").post(async (req, res) => {
 });
 
 router.route("/update").post(async (req, res) => {
-    console.log(req.body)
   con.connect(function (err) {
     if (err) throw err;
     con.query(
