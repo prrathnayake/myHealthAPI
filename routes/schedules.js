@@ -26,7 +26,7 @@ router.route("/id").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM schedules sc LEFT JOIN doctors do on sc.doctorID = do.doctorID LEFT JOIN patients p on sc.patientID = p.patientID WHERE scheduleID = ?",
+      "SELECT * FROM schedules sc LEFT JOIN doctors do on sc.doctorID = do.doctorID LEFT JOIN patients p on sc.patientID = p.patientID WHERE scheduleID = ? ",
       [id],
       (error, results) => {
         if (error) {
@@ -46,7 +46,7 @@ router.route("/userid").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM patients p LEFT JOIN schedules sc on p.patientID = sc.patientID LEFT JOIN doctors do  on sc.doctorID = do.doctorID  WHERE p.firebaseUID  = ? AND sc.scheduleID IS NOT NULL",
+      "SELECT * FROM patients p LEFT JOIN schedules sc on p.patientID = sc.patientID LEFT JOIN doctors do  on sc.doctorID = do.doctorID  WHERE p.firebaseUID  = ? AND sc.scheduleID IS NOT NULL ORDER BY sc.appointmentDate ASC",
       [id],
       (error, results) => {
         if (error) {
