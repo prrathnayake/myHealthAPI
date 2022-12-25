@@ -26,7 +26,7 @@ router.route("/id").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM schedules sc LEFT JOIN doctors do on sc.doctorID = do.doctorID WHERE scheduleID = ?",
+      "SELECT * FROM schedules sc LEFT JOIN doctors do on sc.doctorID = do.doctorID LEFT JOIN patients p on sc.patientID = p.patientID WHERE scheduleID = ?",
       [id],
       (error, results) => {
         if (error) {
@@ -91,23 +91,54 @@ router.route("/add").post(async (req, res) => {
   });
 });
 
-router.route("/cancle").post(async (req, res) => {
-    const id = req.query.id;
-    con.connect(function (err) {
-      if (err) throw err;
-      con.query(
-        "UPDATE schedules SET status='Cancle' WHERE scheduleID = ?",[parseInt(id)],
-        (error, results) => {
-          if (error) {
-            console.log(error);
-          } else if (results.length == 0) {
-            console.log("no details!!");
-          } else {
-            res.json(results);
-          }
+router.route("/update").post(async (req, res) => {
+    console.log(req.body)
+  con.connect(function (err) {
+    if (err) throw err;
+    con.query(
+      "UPDATE schedules SET doctorID = ? , hospitalID = ? , updateDate = ?, appointmentDate = ?, startTime = ?, endTime = ?, description = ?, status = ? WHERE scheduleID = ?",
+      [
+        parseInt(req.body["doctorID"]),
+        parseInt(req.body["hospitalID"]),
+        req.body["dateNow"],
+        req.body["date"],
+        req.body["startTime"],
+        req.body["endTime"],
+        req.body["description"],
+        "Pending",
+        parseInt(req.body["scheduleID"]),
+      ],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+        } else if (results.length == 0) {
+          res.json("no details!!");
+        } else {
+          res.json(results);
         }
-      );
-    });
+      }
+    );
   });
+});
+
+router.route("/cancle").post(async (req, res) => {
+  const id = req.query.id;
+  con.connect(function (err) {
+    if (err) throw err;
+    con.query(
+      "UPDATE schedules SET status='Cancled' WHERE scheduleID = ?",
+      [parseInt(id)],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+        } else if (results.length == 0) {
+          console.log("no details!!");
+        } else {
+          res.json(results);
+        }
+      }
+    );
+  });
+});
 
 module.exports = router;
