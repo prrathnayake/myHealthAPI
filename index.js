@@ -1,4 +1,5 @@
 const express = require("express");
+const PythonShell = require('python-shell').PythonShell;
 const doctors = require("./routes/doctors.js");
 const patients = require("./routes/patients.js");
 const hospitals = require("./routes/hospitals.js");
@@ -15,7 +16,17 @@ app.use('/hospitals', hospitals);
 app.use('/schedules', schedules);
 
 app.get('/', (req, res) => {
-    res.send('Hello');
+var options = {
+  scriptPath: './python',
+  args: [['itching', 'chills']]
+};
+
+PythonShell.run('main.py', options, function (err, results) {
+  if (err) 
+    throw err;
+  // Results is an array consisting of messages collected during execution
+  res.json(results)
+});
 });
 
 app.listen(3001, () => {
