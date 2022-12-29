@@ -16,18 +16,21 @@ app.use("/hospitals", hospitals);
 app.use("/schedules", schedules);
 
 app.get("/", (req, res) => {
-  const symptons = req.query.symptons;
+  const symptoms = req.query.symptoms;
+  try {
+    var options = {
+      scriptPath: "./python",
+      args: [symptoms],
+    };
 
-  var options = {
-    scriptPath: "./python",
-    args: [symptons],
-  };
-
-  PythonShell.run("main.py", options, function (err, results) {
-    if (err) throw err;
-    // Results is an array consisting of messages collected during execution
-    res.json(results);
-  });
+    PythonShell.run("main.py", options, function (err, results) {
+      if (err) throw err;
+      // Results is an array consisting of messages collected during execution
+      res.json(results);
+    });
+  } catch (err) {
+    console.log(err)
+  }
 });
 
 app.listen(3001, () => {
