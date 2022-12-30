@@ -12,7 +12,7 @@ router.route("/").get(async (req, res) => {
         if (error) {
           console.log(error);
         } else if (results.length == 0) {
-          console.log("no details!!");
+          res.json([])
         } else {
           res.json(results);
         }
@@ -32,7 +32,7 @@ router.route("/id").get(async (req, res) => {
         if (error) {
           console.log(error);
         } else if (results.length == 0) {
-          res.send("no details!!");
+          res.json([])
         } else {
           res.json(results);
         }
@@ -52,7 +52,7 @@ router.route("/userid").get(async (req, res) => {
         if (error) {
           console.log(error);
         } else if (results.length == 0) {
-          res.json("no details!!");
+          res.json([])
         } else {
           res.json(results);
         }
@@ -82,7 +82,7 @@ router.route("/add").post(async (req, res) => {
         if (error) {
           console.log(error);
         } else if (results.length == 0) {
-          res.json("no details!!");
+          res.json([])
         } else {
           res.json(results);
         }
@@ -111,7 +111,7 @@ router.route("/update").post(async (req, res) => {
         if (error) {
           console.log(error);
         } else if (results.length == 0) {
-          res.json("no details!!");
+          res.json([])
         } else {
           res.json(results);
         }
@@ -131,7 +131,7 @@ router.route("/cancle").post(async (req, res) => {
         if (error) {
           console.log(error);
         } else if (results.length == 0) {
-          console.log("no details!!");
+          res.json([])
         } else {
           res.json(results);
         }

@@ -11,7 +11,7 @@ router.route("/").get(async(req, res) => {
             console.log(error)
         }
         else if(results.length == 0){
-            console.log("no details!!")
+            res.json([])
         }else{
             res.json(results)
         }          
@@ -29,7 +29,7 @@ router.route("/id").get(async(req, res) => {
                 console.log(error)
             }
             else if(results.length == 0){
-                res.send("no details!!")
+                res.json([])
             }else{
                 res.json(results)
             }          
