@@ -1,7 +1,3 @@
-CREATE DATABASE myhealthapplication; 
-
-----------------------------------------------------------------------------------------------------------------------------------------------
-
 USE myhealthapplication;
 
 CREATE TABLE patients(
@@ -59,11 +55,7 @@ CREATE TABLE schedules(
     FOREIGN KEY (hospitalID) REFERENCES hospitals(hospitalID)
 );
 
-----------------------------------------------------------------------------------------------------------------------------------------------
-
 ALTER TABLE schedules ADD COLUMN status VARCHAR(15) AFTER description;
-
-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ALTER TABLE schedules CHANGE appointmentDate appointmentDate DATE;
 
