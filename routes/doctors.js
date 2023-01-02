@@ -55,4 +55,22 @@ router.route("/dropdown").get(async(req, res) => {
   });
 });
 
+router.route("/availableTime").get(async(req, res) => {
+    const  {doctorID, hospitalID}  = req.query
+    con.connect(function (err) {
+      if (err) throw err;
+      con.query('SELECT * FROM availableTime WHERE doctorID = ? AND HospitalID = ?',[doctorID, hospitalID],  (error, results) => {
+          if(error){
+              console.log(error)
+          }
+          else if(results.length == 0){
+              res.json([])
+          }else{
+              res.json(results)
+          }          
+        
+      });
+    });
+  });
+
 module.exports = router;

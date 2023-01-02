@@ -62,3 +62,21 @@ ALTER TABLE schedules CHANGE appointmentDate appointmentDate DATE;
 ALTER TABLE schedules ADD COLUMN startTime TIME AFTER appointmentDate;
 
 ALTER TABLE schedules ADD COLUMN endTime TIME AFTER startTime;
+
+CREATE TABLE availableTime(
+	availableTimeID int NOT NULL AUTO_INCREMENT,
+	doctorID int NOT NULL,
+    hospitalID int NOT NULL,
+    setDate datetime,
+    updateDate datetime,
+    dayOfWeek int,
+	PRIMARY KEY (availabeTimeID),
+    FOREIGN KEY (doctorID) REFERENCES doctors(doctorID),
+    FOREIGN KEY (hospitalID) REFERENCES hospitals(hospitalID)
+);
+
+ALTER TABLE availableTime ADD COLUMN startTime TIME AFTER dayOfWeek;
+
+ALTER TABLE availableTime ADD COLUMN endTime TIME AFTER startTime;
+
+ALTER TABLE availableTime CHANGE dayOfWeek dayOfWeek VARCHAR(50);
