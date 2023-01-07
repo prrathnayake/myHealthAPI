@@ -4,6 +4,7 @@ const doctors = require("./routes/doctors.js");
 const patients = require("./routes/patients.js");
 const hospitals = require("./routes/hospitals.js");
 const schedules = require("./routes/schedules.js");
+const auth = require("./routes/auth.js");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use("/doctors", doctors);
 app.use("/patients", patients);
 app.use("/hospitals", hospitals);
 app.use("/schedules", schedules);
+app.use("/auth", auth);
 
 app.get("/", (req, res) => {
   const symptoms = req.query.symptoms;

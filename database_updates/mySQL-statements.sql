@@ -9,19 +9,28 @@ CREATE TABLE patients(
 	address varchar(255),
 	mobile varchar(255),
     email varchar(255),
-    Age int,
+    bdate DATE,
 	PRIMARY KEY (patientID)
 );
 
-CREATE TABLE doctors(
-	doctorID int NOT NULL AUTO_INCREMENT,
+CREATE TABLE role(
+	roleID int NOT NULL AUTO_INCREMENT,
+	discription varchar(255),
+	PRIMARY KEY (roleID)
+);
+
+CREATE TABLE staffs(
+	staffID int NOT NULL AUTO_INCREMENT,
+	roleID int, 
 	firstName varchar(255),
 	lastName varchar(255),
 	area varchar(255),
 	mobile varchar(255),
     email varchar(255),
 	rate FLOAT,
-	PRIMARY KEY (doctorID)
+    password varchar(255),
+	PRIMARY KEY (staffID),
+	FOREIGN KEY (roleID) REFERENCES role(roleID)
 );
 
 CREATE TABLE hospitals(
@@ -34,16 +43,16 @@ CREATE TABLE hospitals(
 
 CREATE TABLE doctorHospital(
 	dhID int NOT NULL AUTO_INCREMENT,
-	doctorID int,
+	staffID int,
     patientID int,
 	PRIMARY KEY (dhID),
     FOREIGN KEY (patientID) REFERENCES patients(patientID),
-    FOREIGN KEY (doctorID) REFERENCES doctors(doctorID)
+    FOREIGN KEY (staffID) REFERENCES Staffs(staffID)
 );
 
 CREATE TABLE schedules(
 	scheduleID int NOT NULL AUTO_INCREMENT,
-	doctorID int NOT NULL,
+	staffID int NOT NULL,
     patientID int NOT NULL,
     hospitalID int NOT NULL,
     scheduledDate datetime,
@@ -55,20 +64,21 @@ CREATE TABLE schedules(
 	status VARCHAR(15),
 	PRIMARY KEY (scheduleID),
     FOREIGN KEY (patientID) REFERENCES patients(patientID),
-    FOREIGN KEY (doctorID) REFERENCES doctors(doctorID),
+    FOREIGN KEY (staffID) REFERENCES staffs(staffID),
     FOREIGN KEY (hospitalID) REFERENCES hospitals(hospitalID)
 );
 
 CREATE TABLE availableTime(
 	availableTimeID int NOT NULL AUTO_INCREMENT,
-	doctorID int NOT NULL,
+	staffID int NOT NULL,
     hospitalID int NOT NULL,
     setDate datetime,
     updateDate datetime,
     dayOfWeek VARCHAR(50),
 	startTime TIME,
 	endTime TIME,
-	PRIMARY KEY (availabeTimeID),
-    FOREIGN KEY (doctorID) REFERENCES doctors(doctorID),
+	PRIMARY KEY (availableTimeID),
+    FOREIGN KEY (staffID) REFERENCES staffs(staffID),
     FOREIGN KEY (hospitalID) REFERENCES hospitals(hospitalID)
 );
+
