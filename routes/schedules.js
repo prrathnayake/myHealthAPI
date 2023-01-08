@@ -7,7 +7,7 @@ router.route("/").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM schedules sc LEFT JOIN doctors do on sc.doctorID = do.doctorID",
+      "SELECT * FROM schedules sc LEFT JOIN staffs do on sc.staffID = do.staffID",
       (error, results) => {
         if (error) {
           console.log(error);
@@ -26,8 +26,29 @@ router.route("/id").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM schedules sc LEFT JOIN doctors do on sc.doctorID = do.doctorID LEFT JOIN patients p on sc.patientID = p.patientID WHERE scheduleID = ? ",
+      "SELECT * FROM schedules sc LEFT JOIN staffs do on sc.staffID = do.staffID LEFT JOIN patients p on sc.patientID = p.patientID WHERE scheduleID = ? ",
       [id],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+        } else if (results.length == 0) {
+          res.json([])
+        } else {
+          res.json(results);
+        }
+      }
+    );
+  });
+});
+
+router.route("/staffID").get(async (req, res) => {
+  const id = req.query.id;
+  const date = req.query.date;
+  con.connect(function (err) {
+    if (err) throw err;
+    con.query(
+      "SELECT * FROM schedules sc RIGHT JOIN staffs do on sc.staffID = do.staffID WHERE staffID = ? AND appointmentDate = ?",
+      [id, date],
       (error, results) => {
         if (error) {
           console.log(error);
@@ -46,7 +67,7 @@ router.route("/userid").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM patients p LEFT JOIN schedules sc on p.patientID = sc.patientID LEFT JOIN doctors do  on sc.doctorID = do.doctorID  WHERE p.firebaseUID  = ? AND sc.scheduleID IS NOT NULL ORDER BY sc.appointmentDate ASC",
+      "SELECT * FROM patients p LEFT JOIN schedules sc on p.patientID = sc.patientID LEFT JOIN staffs do  on sc.staffID = do.staffID  WHERE p.firebaseUID  = ? AND sc.scheduleID IS NOT NULL ORDER BY sc.appointmentDate ASC",
       [id],
       (error, results) => {
         if (error) {
@@ -65,9 +86,9 @@ router.route("/add").post(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "INSERT INTO schedules (doctorID, patientID, hospitalID, scheduledDate, updateDate, appointmentDate, startTime, endTime, description, status) VALUES ( ?,(SELECT patientID FROM patients Where firebaseUID = ?),?,?,?,?,?,?,?,?)",
+      "INSERT INTO schedules (staffID, patientID, hospitalID, scheduledDate, updateDate, appointmentDate, startTime, endTime, description, status) VALUES ( ?,(SELECT patientID FROM patients Where firebaseUID = ?),?,?,?,?,?,?,?,?)",
       [
-        parseInt(req.body["doctorID"]),
+        parseInt(req.body["staffID"]),
         req.body["patientUid"],
         parseInt(req.body["hospitalID"]),
         req.body["dateNow"],
@@ -95,9 +116,9 @@ router.route("/update").post(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "UPDATE schedules SET doctorID = ? , hospitalID = ? , updateDate = ?, appointmentDate = ?, startTime = ?, endTime = ?, description = ?, status = ? WHERE scheduleID = ?",
+      "UPDATE schedules SET staffID = ? , hospitalID = ? , updateDate = ?, appointmentDate = ?, startTime = ?, endTime = ?, description = ?, status = ? WHERE scheduleID = ?",
       [
-        parseInt(req.body["doctorID"]),
+        parseInt(req.body["staffID"]),
         parseInt(req.body["hospitalID"]),
         req.body["dateNow"],
         req.body["date"],

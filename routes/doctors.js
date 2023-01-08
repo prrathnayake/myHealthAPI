@@ -6,7 +6,7 @@ const router = express.Router();
 router.route("/").get(async(req, res) => {
   con.connect(function (err) {
     if (err) throw err;
-    con.query('SELECT * FROM doctors',  (error, results) => {
+    con.query('SELECT * FROM staffs',  (error, results) => {
         if(error){
             console.log(error)
         }
@@ -24,7 +24,7 @@ router.route("/id").get(async(req, res) => {
     const  id  = req.query.id
     con.connect(function (err) {
         if (err) throw err;
-        con.query('SELECT * FROM doctors WHERE doctorID = ?', [id],  (error, results) => {
+        con.query('SELECT * FROM staffs WHERE staffID = ?', [id],  (error, results) => {
             if(error){
                 console.log(error)
             }
@@ -41,7 +41,7 @@ router.route("/id").get(async(req, res) => {
 router.route("/dropdown").get(async(req, res) => {
   con.connect(function (err) {
     if (err) throw err;
-    con.query('SELECT doctorID, firstName, lastName FROM doctors',  (error, results) => {
+    con.query('SELECT staffID, firstName, lastName FROM staffs',  (error, results) => {
         if(error){
             console.log(error)
         }
@@ -56,10 +56,10 @@ router.route("/dropdown").get(async(req, res) => {
 });
 
 router.route("/availableTime").get(async(req, res) => {
-    const  {doctorID, hospitalID}  = req.query
+    const  {staffID, hospitalID}  = req.query
     con.connect(function (err) {
       if (err) throw err;
-      con.query('SELECT * FROM availableTime WHERE doctorID = ? AND HospitalID = ?',[doctorID, hospitalID],  (error, results) => {
+      con.query('SELECT * FROM availableTime WHERE staffID = ? AND HospitalID = ?',[staffID, hospitalID],  (error, results) => {
           if(error){
               console.log(error)
           }
