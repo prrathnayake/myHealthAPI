@@ -7,7 +7,7 @@ router.post('/login', async (req, res) => {
   const {email, password} = req.body
   con.connect(function(err) {
       if (err) throw err;
-      con.query('SELECT password FROM doctorPassword dp LEFT JOIN doctors d on dp.staffUID = d.doctorID WHERE d.s_email = ?', [email], (error, results) => {
+      con.query('SELECT password FROM staffs WHERE email = ?', [email], (error, results) => {
           if(error){
               console.log(error)
           }
@@ -46,7 +46,7 @@ router.post('/register', async (req, res) => {
 
     const{ fname, lname, address, mobile, email, pword, pwordConfirm} = req.body;
     
-    con.query("SELECT email FROM doctors WHERE email = ?", [email], async (error, results) => {
+    con.query("SELECT email FROM staffs WHERE email = ?", [email], async (error, results) => {
         if(error){
             console.log(error)
         }
@@ -64,7 +64,7 @@ router.post('/register', async (req, res) => {
         let hashedPassword = await bcrypt.hash(pword, 10);
         console.log(hashedPassword);
 
-        con.query("INSERT INTO doctors SET ?", {sf_name: fname, sl_name:lname, s_address:address, mobile:mobile, email:email, pword:hashedPassword}, (error,results) => {
+        con.query("INSERT INTO staffs SET ?", {sf_name: fname, sl_name:lname, s_address:address, mobile:mobile, email:email, pword:hashedPassword}, (error,results) => {
             if(error){
                 console.log("error:",error)
             } else{
