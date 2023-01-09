@@ -55,4 +55,24 @@ router.route("/dropdown").get(async(req, res) => {
     });
 });
 
-module.exports = router;
+router.route("/addHospital").post(async (req, res) => {
+    const { name, address, mobile } = req.body;
+    con.connect(function (err) {
+      if (err) throw err;
+      con.query(
+        "INSERT INTO hospitals ( name, address, mobile) VALUES (?, ? ,? )",
+        [name, address,  mobile],
+        (error, results) => {
+          if (error) {
+            console.log(error);
+          } else if (results.length == 0) {
+            res.json([]);
+          } else {
+            res.json(results);
+          }
+        }
+      );
+    });
+  });
+  
+  module.exports = router;

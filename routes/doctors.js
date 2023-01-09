@@ -73,4 +73,22 @@ router.route("/availableTime").get(async(req, res) => {
     });
   });
 
+  router.route("/addStaff").post(async(req, res) => {
+    const  {staffID, hospitalID}  = req.query
+    con.connect(function (err) {
+      if (err) throw err;
+      con.query('SELECT * FROM availableTime WHERE staffID = ? AND HospitalID = ?',[staffID, hospitalID],  (error, results) => {
+          if(error){
+              console.log(error)
+          }
+          else if(results.length == 0){
+              res.json([])
+          }else{
+              res.json(results)
+          }          
+        
+      });
+    });
+  });
+
 module.exports = router;
