@@ -1,5 +1,7 @@
 const express = require("express");
 const { con } = require("../database/myDatabase");
+const { generateAccessToken } = require("../resourses/JWTtoken");
+const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
@@ -15,10 +17,10 @@ router.post('/login', async (req, res) => {
               console.log("Wrong Email!!!!!!")
               res.json('Wrong Email!')
           }else{
-              let spword = results[0].s_pword
+              let spword = results[0].password
               bcrypt.compare(password, spword, function(err, isMatch) {
                   if (err) {
-                  throw err
+                  console.log (err);
                   } 
                   else if (!isMatch) {
                       console.log("Password doesn't match!")
@@ -27,9 +29,9 @@ router.post('/login', async (req, res) => {
                   else {
                       console.log("Password matches!")
                       const user = { 
-                          id:results[0].staff_id,
-                          email:results[0].s_email ,
-                          role:results[0].s_role  
+                          id:results[0].staffID,
+                          email:results[0].email ,
+                          role:results[0].roleID  
                       }
                       const accessToken = generateAccessToken(user)
                       res.json({accessToken: accessToken, role: results[0].s_role, authentcated: true})
