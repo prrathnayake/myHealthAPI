@@ -12,7 +12,6 @@ router.route("/").get(async (req, res) => {
       } else if (results.length == 0) {
         res.json([]);
       } else {
-        console.log(results);
         res.json(results);
       }
     });

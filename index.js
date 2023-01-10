@@ -9,6 +9,7 @@ const auth = require("./routes/auth.js");
 const role = require("./routes/role.js");
 const area = require("./routes/area.js");
 const staffs = require("./routes/staffs.js");
+const availableTime = require("./routes/availableTime.js");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/auth", auth);
 app.use("/role", role);
 app.use("/area", area);
 app.use("/staffs", staffs);
+app.use("/addAvailableTime", availableTime);
 
 app.get("/", (req, res) => {
   const symptoms = req.query.symptoms;
