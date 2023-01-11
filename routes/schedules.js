@@ -84,11 +84,12 @@ router.route("/userid").get(async (req, res) => {
 
 router.route("/doctorid").get(async (req, res) => {
   const id = req.query.id;
+  const date = req.query.date;
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM schedules sc LEFT JOIN patients p on sc.patientID = p.patientID WHERE sc.staffID = ? ORDER BY sc.appointmentDate ASC",
-      [parseInt(id)],
+      "SELECT * FROM schedules sc LEFT JOIN patients p on sc.patientID = p.patientID WHERE sc.staffID = ? AND CAST(sc.scheduledDate AS DATE) = ? ORDER BY sc.appointmentDate ASC",
+      [parseInt(id), date],
       (error, results) => {
         if (error) {
           console.log(error);
