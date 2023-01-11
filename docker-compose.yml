@@ -1,0 +1,54 @@
+version: "3.9"
+services:
+  db:
+    image: mysql
+    restart: always
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: pasan213580
+      MYSQL_DATABASE: myhealthapplication
+    volumes:
+      - db:/var/lib/mysql
+      - ./database_updates:/docker-entrypoint-initdb.d
+    ports:
+      - 3300:3306
+    expose:
+      - 3300
+
+  api:
+    image: my-health-api:v1.5
+    restart: always
+    ports:
+      - 3001:3001
+    networks:
+      - backend
+      - frontend
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 3306
+      DATABASE_USER: root
+      DATABASE_PWORD: pasan213580
+      DATABASE_DB: myhealthapplication
+    depends_on:
+      - db
+    expose:
+      - 3001
+
+  frontend:
+    image: my-health-frontend:v1.0
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - frontend
+    expose:
+      - 3000
+  
+networks:
+  backend:
+  frontend:
+
+volumes:
+  db:
+  
