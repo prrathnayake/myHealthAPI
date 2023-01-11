@@ -2,10 +2,11 @@ const express = require("express");
 const { con } = require("../database/myDatabase");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const { verfyUser } = require("../resourses/JWTtoken");
 
 const router = express.Router();
 
-router.route("/addStaff").post(async (req, res) => {
+router.route("/addStaff").post(verfyUser, async (req, res) => {
   const { firstName, lastName, area, role, mobile, email } = req.body;
   const defaultPassword = (firstName + "123");
   const hashedPassword = await bcrypt.hash(defaultPassword, 12);
