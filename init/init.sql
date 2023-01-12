@@ -1,5 +1,3 @@
-DROP DATABASE myhealthapplication;
-
 CREATE DATABASE myhealthapplication;
 
 USE myhealthapplication;

@@ -2,50 +2,53 @@ version: "3.9"
 services:
   db:
     image: mysql
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     networks:
       - backend
     environment:
       MYSQL_ROOT_PASSWORD: pasan213580
       MYSQL_DATABASE: myhealthapplication
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
     volumes:
-      - db:/var/lib/mysql
-      - ./database_updates/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db:/var/lib/mysql:rw
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
       - 3300:3306
     expose:
       - 3300
 
-  api:
-    image: pasanransika/my-health-api
-    restart: always
-    ports:
-      - 3001:3001
-    networks:
-      - backend
-      - frontend
-    environment:
-      DATABASE_HOST: db
-      DATABASE_PORT: 3306
-      DATABASE_USER: root
-      DATABASE_PWORD: pasan213580
-      DATABASE_DB: myhealthapplication
-    depends_on:
-      - db
-    expose:
-      - 3001
+  # api:
+  #   image: pasanransika/my-health-api
+  #   restart: always
+  #   ports:
+  #     - 3001:3001
+  #   networks:
+  #     - backend
+  #     - frontend
+  #   environment:
+  #     DATABASE_HOST: db
+  #     DATABASE_PORT: 3306
+  #     DATABASE_USER: root
+  #     DATABASE_PWORD: pasan213580
+  #     DATABASE_DB: myhealthapplication
+  #   depends_on:
+  #     - db
+  #   expose:
+  #     - 3001
 
-  frontend:
-    image: pasanransika/my-health-frontend
-    restart: always
-    ports:
-      - 3000:3000
-    networks:
-      - frontend
-    environment:
-      REACT_APP_IP: api
-    expose:
-      - 3000
+  # frontend:
+  #   image: pasanransika/my-health-frontend
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - frontend
+  #   environment:
+  #     REACT_APP_IP: api
+  #   expose:
+  #     - 3000
   
 networks:
   backend:
