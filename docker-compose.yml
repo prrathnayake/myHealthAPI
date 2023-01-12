@@ -10,14 +10,14 @@ services:
       MYSQL_DATABASE: myhealthapplication
     volumes:
       - db:/var/lib/mysql
-      - ./database_updates:/docker-entrypoint-initdb.d
+      - ./database_updates/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 3300:3306
     expose:
       - 3300
 
   api:
-    image: my-health-api:v1.5
+    image: pasanransika/my-health-api
     restart: always
     ports:
       - 3001:3001
@@ -36,12 +36,14 @@ services:
       - 3001
 
   frontend:
-    image: my-health-frontend:v1.0
+    image: pasanransika/my-health-frontend
     restart: always
     ports:
       - 3000:3000
     networks:
       - frontend
+    environment:
+      REACT_APP_IP: api
     expose:
       - 3000
   
