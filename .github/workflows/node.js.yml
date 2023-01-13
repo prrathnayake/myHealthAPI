@@ -42,7 +42,7 @@ jobs:
       with:
         host: ${{ secrets.LINODE_IP }}
         username: ${{ secrets.LINODE_USERNAME }}
-        key: ${{ secrets.LINODE_PRIVATE_KEY }}
+        password: ${{ secrets.LINODE_PASSWORD }}
         script: |
           docker-compose -f docker-compose.yml pull
           docker-compose -f docker-compose.yml up -d
