@@ -33,6 +33,12 @@ services:
       DATABASE_USER: root
       DATABASE_PWORD: pasan213580
       DATABASE_DB: myhealthapplication
+      FIREBASE_APIKEY: "AIzaSyDLQianBzOvT2lqHg9_1L_NVDkx2meavkQ"
+      FIREBASE_AUTHDOMAIN: "myhealth-92372.firebaseapp.com"
+      FIREBASE_PROJECTID: "myhealth-92372"
+      FIREBASE_STORAGEBUCKET: "myhealth-92372.appspot.com"
+      FIREBASE_MESSAGESENDERID: "746124379024"
+      FIREBASE_APPID: "1:746124379024:web:57d1822d509595de222915"
     depends_on:
       - db
     expose:
