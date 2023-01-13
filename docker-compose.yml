@@ -46,7 +46,7 @@ services:
     networks:
       - frontend
     environment:
-      REACT_APP_IP: 172.105.58.35
+      REACT_APP_IP: localhost
     depends_on:
       - api
     expose:
