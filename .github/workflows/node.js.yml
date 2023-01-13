@@ -45,7 +45,7 @@ jobs:
         password: ${{ secrets.LINODE_PASSWORD }}
         script: |
           apt update
-          apt install git
-          git clone https://github.com/prrathnayake/myHealthAPI.git
-          ls
+          apt-get install curl wget
+          curl -LJO https://github.com/prrathnayake/myHealthAPI/raw/master/docker-compose.yml
+          wget https://github.com/prrathnayake/myHealthAPI/raw/master/docker-compose.yml
           docker-compose up -d
