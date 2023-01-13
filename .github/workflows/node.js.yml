@@ -37,3 +37,12 @@ jobs:
         echo ${{ secrets.DOCKER_SECRET }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
         docker tag my-health-api pasanransika/my-health-api
         docker push pasanransika/my-health-api
+    - name: Deploy to Linode
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.LINODE_IP }}
+        username: ${{ secrets.LINODE_USERNAME }}
+        key: ${{ secrets.LINODE_PRIVATE_KEY }}
+        script: |
+          docker-compose -f docker-compose.yml pull
+          docker-compose -f docker-compose.yml up -d
