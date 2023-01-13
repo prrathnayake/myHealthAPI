@@ -44,5 +44,8 @@ jobs:
         username: ${{ secrets.LINODE_USERNAME }}
         password: ${{ secrets.LINODE_PASSWORD }}
         script: |
-          docker-compose -f docker-compose.yml pull
-          docker-compose -f docker-compose.yml up -d
+          apt update
+          apt install git
+          git clone https://github.com/prrathnayake/myHealthAPI.git
+          ls
+          docker-compose up -d
