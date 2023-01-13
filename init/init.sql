@@ -56,7 +56,7 @@ CREATE TABLE doctorHospital(
     patientID int,
 	PRIMARY KEY (dhID),
     FOREIGN KEY (patientID) REFERENCES patients(patientID),
-    FOREIGN KEY (staffID) REFERENCES Staffs(staffID)
+    FOREIGN KEY (staffID) REFERENCES staffs(staffID)
 );
 
 CREATE TABLE schedules(
