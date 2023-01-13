@@ -1,18 +1,10 @@
-require('dotenv').config()
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+const admin = require("firebase-admin");
+const serviceAccount = require("./myhealth-92372-firebase-adminsdk-5llmi-3b9ac38c9e.json");
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_APIKEY,
-  authDomain: process.env.FIREBASE_AUTHDOMAIN,
-  projectId: process.env.FIREBASE_PROJECTID,
-  storageBucket: process.env.FIREBASE_STORAGEBUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGESENDERID,
-  appId: process.env.FIREBASE_APPID 
-};
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const db = admin.firestore();
+
+module.exports = {db};

@@ -29,6 +29,7 @@ CREATE TABLE doctorArea(
 
 CREATE TABLE staffs(
 	staffID int NOT NULL AUTO_INCREMENT,
+	firebaseUID varchar(255),
 	roleID int, 
 	firstName varchar(255),
 	lastName varchar(255),
