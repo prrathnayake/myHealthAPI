@@ -48,6 +48,5 @@ jobs:
           apt-get install curl wget
           docker-compose down
           rm docker-compose.yml
-          docker network prune
           curl -LJO https://github.com/prrathnayake/myHealthAPI/raw/master/docker-compose.yml
           docker-compose up -d
