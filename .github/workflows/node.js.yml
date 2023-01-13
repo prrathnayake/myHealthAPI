@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -44,5 +44,9 @@ jobs:
         username: ${{ secrets.LINODE_USERNAME }}
         password: ${{ secrets.LINODE_PASSWORD }}
         script: |
-          docker-compose -f docker-compose.yml pull
-          docker-compose -f docker-compose.yml up -d
+          apt update
+          apt-get install curl wget
+          docker-compose down
+          rm docker-compose.yml
+          curl -LJO https://github.com/prrathnayake/myHealthAPI/raw/master/docker-compose.yml
+          docker-compose up -d
