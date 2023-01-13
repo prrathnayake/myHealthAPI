@@ -6,7 +6,7 @@ const router = express.Router();
 router.route("/").get(async(req, res) => {
   con.connect(function (err) {
     if (err) throw err;
-    con.query('SELECT * FROM staffs',  (error, results) => {
+    con.query('SELECT * FROM staff WHERE roleID = 2',  (error, results) => {
         if(error){
             console.log(error)
         }
