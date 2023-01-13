@@ -48,6 +48,7 @@ CREATE TABLE hospitals(
 	name varchar(255),
 	address varchar(255),
 	mobile varchar(255),
+	rate FLOAT,
 	PRIMARY KEY (hospitalID)
 );
 

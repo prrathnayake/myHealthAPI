@@ -22,7 +22,7 @@ router.route("/addStaff").post(verfyUser, async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "INSERT INTO staffs ( firebaseUID, roleID, firstName, lastName, area, mobile, email, rate, password) VALUES (?, ?, ? ,? ,? ,? ,?,?,?)",
+      "INSERT INTO staffs ( firebaseUID, roleID, firstName, lastName, areaID, mobile, email, rate, password) VALUES (?, ?, ? ,? ,? ,? ,?,?,?)",
       [
         response.id,
         parseInt(role),
