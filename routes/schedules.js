@@ -88,7 +88,7 @@ router.route("/doctorid").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM schedules sc LEFT JOIN patients p on sc.patientID = p.patientID WHERE sc.staffID = ? AND CAST(sc.scheduledDate AS DATE) = ? ORDER BY sc.appointmentDate ASC",
+      "SELECT * FROM schedules sc LEFT JOIN patients p on sc.patientID = p.patientID WHERE sc.staffID = ? AND CAST(sc.appointmentDate AS DATE) = ? ORDER BY sc.appointmentDate ASC",
       [parseInt(id), date],
       (error, results) => {
         if (error) {
@@ -182,4 +182,23 @@ router.route("/cancle").post(async (req, res) => {
   });
 });
 
+router.route("/confirm").post(async (req, res) => {
+  const id = req.query.id;
+  con.connect(function (err) {
+    if (err) throw err;
+    con.query(
+      "UPDATE schedules SET status='Confirm' WHERE scheduleID = ?",
+      [parseInt(id)],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+        } else if (results.length == 0) {
+          res.json([])
+        } else {
+          res.json(results);
+        }
+      }
+    );
+  });
+});
 module.exports = router;

@@ -42,7 +42,7 @@ router.route("/doctorId").get(async(req, res) => {
     const  id  = req.query.id
     con.connect(function (err) {
         if (err) throw err;
-        con.query('SELECT * FROM patients p RIGHT JOIN schedules sc on p.patientID = sc.patientID WHERE  sc.doctorID = ?', [id],  (error, results) => {
+        con.query('SELECT * FROM patients p RIGHT JOIN schedules sc on p.patientID = sc.patientID WHERE sc.staffID = ?', [parseInt(id)],  (error, results) => {
             if(error){
                 console.log(error)
             }
