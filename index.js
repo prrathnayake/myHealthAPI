@@ -11,6 +11,7 @@ const area = require("./routes/area.js");
 const staffs = require("./routes/staffs.js");
 const availableTime = require("./routes/availableTime.js");
 const chat = require("./routes/chat.js");
+const firebase = require("./routes/firebase.js");
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use("/area", area);
 app.use("/staffs", staffs);
 app.use("/addAvailableTime", availableTime);
 app.use("/chat", chat);
+app.use("/firebase", firebase);
 
 app.get("/", (req, res) => {
   const symptoms = req.query.symptoms;
