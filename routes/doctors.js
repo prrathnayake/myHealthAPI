@@ -24,7 +24,7 @@ router.route("/id").get(async(req, res) => {
     const  id  = req.query.id
     con.connect(function (err) {
         if (err) throw err;
-        con.query('SELECT * FROM staffs WHERE staffID = ?', [id],  (error, results) => {
+        con.query('SELECT *, da.discription as area FROM staffs s LEFT JOIN doctorArea da ON s.areaID = da.areaID WHERE staffID = ?', [id],  (error, results) => {
             if(error){
                 console.log(error)
             }
