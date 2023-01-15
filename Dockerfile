@@ -1,4 +1,4 @@
-FROM node:17
+FROM node:16.15.1-alpine
 
 WORKDIR /usr/src/my-health-api
 
