@@ -15,9 +15,9 @@ const firebase = require("./routes/firebase.js");
 
 const app = express();
 
-app.use(cors());
-app.options('*', cors());
-
+app.use(cors({
+  origin: "http:/172.105.58.35:3000"
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
