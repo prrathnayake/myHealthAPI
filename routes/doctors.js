@@ -59,7 +59,7 @@ router.route("/availableTime").get(async(req, res) => {
     const  {staffID, hospitalID}  = req.query
     con.connect(function (err) {
       if (err) throw err;
-      con.query('SELECT * FROM availableTime WHERE staffID = ? AND HospitalID = ?',[staffID, hospitalID],  (error, results) => {
+      con.query('SELECT * FROM availableTime WHERE staffID = ? AND hsospitalID = ?',[staffID, hospitalID],  (error, results) => {
           if(error){
               console.log(error)
           }
