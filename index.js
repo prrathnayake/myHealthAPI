@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const PythonShell = require("python-shell").PythonShell;
 const doctors = require("./routes/doctors.js");
 const patients = require("./routes/patients.js");
@@ -15,10 +15,20 @@ const firebase = require("./routes/firebase.js");
 
 const app = express();
 
-app.use(cors({
-  origin: '*',
-  credentials: true,
-}));
+app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  if ("OPTIONS" == req.method) {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -49,7 +59,7 @@ app.get("/", (req, res) => {
       res.json(results);
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 });
 
