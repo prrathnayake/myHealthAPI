@@ -35,6 +35,7 @@ router.post("/login", async (req, res) => {
               const accessToken = generateAccessToken(user);
               res.json({
                 accessToken: accessToken,
+                name: `${results[0].firstName} ${results[0].lastName}`,
                 role: results[0].roleID,
                 id: results[0].staffID,
                 authentcated: true,
