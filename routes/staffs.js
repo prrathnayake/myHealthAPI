@@ -44,7 +44,7 @@ router.route("/addStaff").post(verfyUser, async (req, res) => {
             service: "gmail",
             auth: {
               user: "pasan.webtesting@gmail.com",
-              pass: "ndchajrwuzsbgfip",
+              pass: "hohrhkvtakzwbfjm",
             },
           });
 
@@ -58,7 +58,6 @@ router.route("/addStaff").post(verfyUser, async (req, res) => {
           transpoter.sendMail(mailOptions, (error, info) => {
             if (error) {
               console.log(error);
-              res.send("error");
             } else {
               console.log("email sent...");
             }
