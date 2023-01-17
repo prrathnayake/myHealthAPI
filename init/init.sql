@@ -12,6 +12,7 @@ CREATE TABLE patients(
 	mobile varchar(255),
     email varchar(255),
     bdate DATE,
+	nic varchar(20)
 	PRIMARY KEY (patientID)
 );
 
