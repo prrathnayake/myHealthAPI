@@ -67,7 +67,7 @@ router.route("/userid").get(async (req, res) => {
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM patients p LEFT JOIN schedules sc on p.patientID = sc.patientID LEFT JOIN staffs do  on sc.staffID = do.staffID  WHERE p.firebaseUID  = ? AND sc.scheduleID IS NOT NULL ORDER BY sc.appointmentDate ASC",
+      "SELECT * FROM patients p LEFT JOIN schedules sc on p.patientID = sc.patientID LEFT JOIN staffs do  on sc.staffID = do.staffID LEFT JOIN doctorArea da on do.roleID = da.areaID WHERE p.firebaseUID  = ? AND sc.scheduleID IS NOT NULL AND sc.appointmentDate > DATE_SUB(NOW(), INTERVAL 1 DAY) ORDER BY sc.appointmentDate ASC",
       [id],
       (error, results) => {
         if (error) {
