@@ -49,17 +49,6 @@ jobs:
           docker-compose build --no-cache
           docker-compose up -d --force-recreate
           
-    - name: Fetch all remote branches
-      run: git fetch --all
-      
-    - name: List commits on the pull request
-      run: |
-        curl --request GET 
-        --url 'https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/commits' 
-        --header 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' 
-        --header 'Accept: application/vnd.github.v3+json' 
-        --header 'Content-Type: application/json' -o commits.txt
-          
     - name: Send Email
       uses: dawidd6/action-send-mail@v3
       with:
