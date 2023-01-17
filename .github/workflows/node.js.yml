@@ -49,9 +49,12 @@ jobs:
           docker-compose build --no-cache
           docker-compose up -d --force-recreate
           
+    - name: Fetch all remote branches
+      run: git fetch --all
+      
     - name: Print latest commits
       run: |
-        git log -n 10 > commits.txt
+        git log origin/master..HEAD > commits.txt
           
     - name: Send Email
       uses: dawidd6/action-send-mail@v3
