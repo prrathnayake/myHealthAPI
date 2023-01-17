@@ -60,8 +60,8 @@ router.route("/addHospital").post(async (req, res) => {
     con.connect(function (err) {
       if (err) throw err;
       con.query(
-        "INSERT INTO hospitals ( name, address, mobile) VALUES (?, ? ,? )",
-        [name, address,  mobile],
+        "INSERT INTO hospitals ( name, address, mobile, rate) VALUES (?, ? ,?, ? )",
+        [name, address,  mobile, 0.0],
         (error, results) => {
           if (error) {
             console.log(error);
