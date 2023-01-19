@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.8.0",
+    "pm2": "^5.2.2",
     "python-shell": "^3.0.1"
   },
   "devDependencies": {
