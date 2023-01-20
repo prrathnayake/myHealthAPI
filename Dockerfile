@@ -12,4 +12,4 @@ RUN npm install
 
 EXPOSE 3001 
 
-CMD [ "pm2-runtime", "npm", "--", "start" ]
+CMD [ "node", "index.js" ]
