@@ -23,7 +23,7 @@ router.route("/").get(async(req, res) => {
 router.route("/top").get(async(req, res) => {
     con.connect(function (err) {
       if (err) throw err;
-      con.query('SELECT *, da.discription as area FROM staffs s LEFT JOIN doctorArea da ON s.areaID = da.areaID WHERE s.roleID = 2 ORDER BY s.yrate DESC LIMIT 10',  (error, results) => {
+      con.query('SELECT *, da.discription as area FROM staffs s LEFT JOIN doctorArea da ON s.areaID = da.areaID WHERE s.roleID = 2 ORDER BY s.rate DESC LIMIT 10',  (error, results) => {
           if(error){
               console.log(error)
           }
