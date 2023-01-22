@@ -4,10 +4,11 @@ const { con } = require("../database/myDatabase");
 const router = express.Router();
 
 router.route("/").get(async (req, res) => {
+  const date = req.query.date;
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "SELECT * FROM schedules sc LEFT JOIN staffs do on sc.staffID = do.staffID",
+      "SELECT * FROM schedules sc LEFT JOIN staffs do on sc.staffID = do.staffID WHERE CAST(sc.appointmentDate AS DATE) = ? ORDER BY sc.appointmentDate ASC", [date],
       (error, results) => {
         if (error) {
           console.log(error);
