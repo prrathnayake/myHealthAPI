@@ -163,12 +163,12 @@ router.route("/update").post(async (req, res) => {
   });
 });
 
-router.route("/cancle").post(async (req, res) => {
+router.route("/cancel").post(async (req, res) => {
   const id = req.query.id;
   con.connect(function (err) {
     if (err) throw err;
     con.query(
-      "UPDATE schedules SET status='Cancled' WHERE scheduleID = ?",
+      "UPDATE schedules SET status='Cancelled' WHERE scheduleID = ?",
       [parseInt(id)],
       (error, results) => {
         if (error) {
