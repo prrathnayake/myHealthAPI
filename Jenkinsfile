@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_REGISTRY = 'https://hub.docker.com/u/prrathnayake'
+        DOCKER_REGISTRY = 'https://hub.docker.com'
         IMAGE_NAME = 'myHealthAPI'
     }
     
