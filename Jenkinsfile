@@ -13,7 +13,6 @@ pipeline {
             steps {
                 git branch: 'master', credentialsId: 'your-credentials-id', url: "${env.GIT_REPO_URL}"
             }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
