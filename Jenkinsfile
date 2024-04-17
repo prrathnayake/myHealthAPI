@@ -14,7 +14,7 @@ pipeline {
                     docker.build("${env.IMAGE_NAME}", ".")
                     
                     // Push Docker image to registry
-                    docker.withRegistry("${env.DOCKER_REGISTRY}", 'docker-credentials-id') {
+                    docker.withRegistry("${env.DOCKER_REGISTRY}", 'dckr_pat_oLT4Wesix76Ez20nmoFmQD--ciI') {
                         docker.image("${env.IMAGE_NAME}").push('latest')
                     }
                 }
